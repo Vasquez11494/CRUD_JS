@@ -22,7 +22,6 @@ abstract class Conexion
 
         return self::$conexion;
     }
-
     // METODO PARA EJECUTAR SENTENCIAS SQL
 
     public function ejecutar($sql)

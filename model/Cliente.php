@@ -1,6 +1,7 @@
 <?php
 require "Conexion.php";
 
+
 class  Cliente extends Conexion {
     public $cli_codigo;
     public $cli_nombre;
@@ -20,14 +21,14 @@ class  Cliente extends Conexion {
     }
     // insertar datos a la BD
     public function guardar(){
-        $sql = "INSERT into cliente_crud (cli_nombre, cli_apellido, cli_nit, cli_telefono) values ('$this->cli_nombre','$this->cli_apellido','$this->cli_nit','$this->cli_telefono')";
+        $sql = "INSERT into clientes (cli_nombre, cli_apellido, cli_nit, cli_telefono) values ('$this->cli_nombre','$this->cli_apellido','$this->cli_nit','$this->cli_telefono')";
         $resultado = $this->ejecutar($sql);
         return $resultado; 
     }
 
     public function buscar(...$columnas){
         $cols = count($columnas) > 0 ? implode(',', $columnas) : '*';
-        $sql = "SELECT $cols FROM cliente_crud where cli_situacion =  1 ";
+        $sql = "SELECT $cols FROM clientes where cli_situacion =  1 ";
 
         if($this->cli_nombre != ''){
             $sql .= " AND cli_nombre like '%$this->cli_nombre%' ";
@@ -44,20 +45,20 @@ class  Cliente extends Conexion {
 
     public function buscarID($ID){
         
-        $sql = "SELECT * FROM cliente_crud where cli_situacion = 1 AND cli_codigo = $ID ";
+        $sql = "SELECT * FROM clientes where cli_situacion = 1 AND cli_codigo = $ID ";
 
         $resultado =  array_shift(self::servir($sql));
         return $resultado;
     }
 
     public function modificar(){
-        $sql = "UPDATE cliente_crud SET cli_nombre = '$this->cli_nombre', cli_apellido = '$this->cli_apellido', cli_nit = '$this->cli_nit', cli_telefono = '$this->cli_telefono' WHERE cli_situacion = 1 AND cli_codigo = $this->cli_codigo ";
+        $sql = "UPDATE clientes SET cli_nombre = '$this->cli_nombre', cli_apellido = '$this->cli_apellido', cli_nit = '$this->cli_nit', cli_telefono = '$this->cli_telefono' WHERE cli_situacion = 1 AND cli_codigo = $this->cli_codigo ";
         $resultado = $this->ejecutar($sql);
         return $resultado; 
     }
 
     public function eliminar(){
-        $sql = "UPDATE cliente_crud SET cli_situacion = 0  WHERE cli_codigo = $this->cli_codigo";
+        $sql = "UPDATE clientes SET cli_situacion = 0  WHERE cli_codigo = $this->cli_codigo";
         $resultado = $this->ejecutar($sql);
         return $resultado; 
     }

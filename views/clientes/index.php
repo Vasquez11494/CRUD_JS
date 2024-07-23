@@ -29,18 +29,41 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <button type="submit" class="btn btn-info w-100">Guardar</button>
+                    <button type="submit" id="BtnGuardar"  class="btn btn-primary w-100">Guardar</button>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col">
-                    <a href="buscar.php" class="btn btn-success w-100">Buscar</a>
+                    <button type="button" id="BtnBuscar" class="btn btn-info w-100">Buscar</button>
+                </div>
+                <div class="col">
+                    <button type="reset" id="BtnLimpiar" class="btn btn-secondary w-100">Limpiar</button>
                 </div>
             </div>
         </form>
     </div>
-
+    <div class="row justify-content-center mt-3">
+        <div class="col-lg-8 table-responsive">
+            <h2 class="text-center">Clientes Ingresados</h2>
+            <table class="table table-bordered table-hover" id="tablaClientes">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>NIT</th>
+                        <th>Telefono</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" class="text-center">No hay Clientes Registrados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<script src="/crud-js-22072024/src/js/funciones.js"></script>
-<script src="/crud-js-22072024/src/js/productos/index.js"></script>
+<script src="../../src/funciones.js"></script>
+<script src="../../src/clientes/index.js"></script>
 <?php include_once '../../includes/footer.php' ?>

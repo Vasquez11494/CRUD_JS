@@ -9,8 +9,9 @@ const ObtenerClientes = async () => {
     const apellidos = FormularioClientes.cli_apellido.value;
     const nit = FormularioClientes.cli_nit.value;
     const telefono = FormularioClientes.cli_telefono.value;
+    
 
-    const url = '/CRUD_JS/model/Cliente.php';
+    const url = '/CRUD_JS/controladores/clientes/index.php';
     const config = {
         method: 'GET'
     }
@@ -19,17 +20,19 @@ const ObtenerClientes = async () => {
 
         const respuesta =  await fetch (url, config);
         const data = await respuesta.json();
-        const { mensaje, codigo, detalle } = data
 
-        tablaClientes.tBodies[0].InnerHtml = '';
-        const fragment = document.createDocumentFragment();
+        console.log(data);
 
+        tablaClientes.tBodies[0].innerHTML = ''
+        const fragment = document.createDocumentFragment()
         let contador = 1;
 
         if(respuesta.status == 200){
-            alert(mensaje);
+            alert('Clientes Encontrados');
             if(data.length > 0 ){
-                data.forEach(clientes => {
+                
+                data.forEach(cliente => {
+    
                     const tr = document.createElement('tr');
                     const celda1 = document.createElement('td');
                     const celda2 = document.createElement('td');
@@ -39,27 +42,42 @@ const ObtenerClientes = async () => {
                     const celda6 = document.createElement('td');
                     const celda7 = document.createElement('td');
 
-                    const BtnModificar = document.createElement('button')
-                    const BtnEliminar = document.createElement('button')
+                    celda1.innerText = contador;
+
+                    const BtnModificar = document.createElement('button');
+                    const BtnEliminar = document.createElement('button');
 
                     BtnModificar.textContent = 'Modificar';
-                    BtnModificar.classList.add('btn', 'btn-warning', 'w-100')
-
+                    BtnModificar.classList.add('btn', 'btn-warning', 'w-100');
 
                     BtnEliminar.textContent = 'Eliminar';
-                    BtnEliminar.classList.add('btn', 'btn-danger', 'w-100')
+                    BtnEliminar.classList.add('btn', 'btn-danger', 'w-100');
 
-
-                    celda1.innerText = contador;
-                    celda2.innerText
-
+                    celda2.innerText = cliente.cli_nombre;
+                    celda3.innerText = cliente.cli_apellido;
+                    celda4.innerText = cliente.cli_nit;
+                    celda5.innerText = cliente.cli_telefono;
                     
+                    celda6.appendChild(BtnEliminar);
+                    celda7.appendChild(BtnModificar);
+
+                    tr.appendChild(celda1);
+                    tr.appendChild(celda2);
+                    tr.appendChild(celda3);
+                    tr.appendChild(celda4);
+                    tr.appendChild(celda5);
+                    tr.appendChild(celda6);
+                    tr.appendChild(celda7);
+
+                    fragment.appendChild(tr);
+                    contador++;
                 });
+
             }else{
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
                 td.innerText = 'No hay clientes '
-                td.colSpan = 5;
+                td.colSpan = 7;
         
                 tr.appendChild(td)
                 fragment.appendChild(tr)
@@ -69,10 +87,12 @@ const ObtenerClientes = async () => {
             console.log('No se encontraron Datos');
         }
     } catch (error) {
-        
+        console.log(error)
     }
 
 }
+
+ObtenerClientes();
 
 const GuardarClientes = async (event) =>{
 
@@ -111,9 +131,9 @@ const GuardarClientes = async (event) =>{
     } catch (error) {
         console.log(error);
     }
-    btnGuardar.disabled = false;
+    BtnGuardar.disabled = false;
 }
 
-FormularioClientes.addEventListener('submit', ObtenerClientes)
+FormularioClientes.addEventListener('submit', GuardarClientes)
 
-
+BtnBuscar.addEventListener('click', ObtenerClientes)

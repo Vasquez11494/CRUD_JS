@@ -9,30 +9,27 @@ const ObtenerClientes = async () => {
     const apellidos = FormularioClientes.cli_apellido.value;
     const nit = FormularioClientes.cli_nit.value;
     const telefono = FormularioClientes.cli_telefono.value;
-    
 
-    const url = '/CRUD_JS/controladores/clientes/index.php';
+
+    const url = `/CRUD_JS/controladores/clientes/index.php?cli_nombre=${nombres}&cli_apellido=${apellidos}&cli_nit=${nit}&cli_telefono=${telefono}&`;
     const config = {
         method: 'GET'
     }
 
     try {
-
-        const respuesta =  await fetch (url, config);
+        const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        console.log(data);
+        console.log(data); 
 
-        tablaClientes.tBodies[0].innerHTML = ''
-        const fragment = document.createDocumentFragment()
+        tablaClientes.tBodies[0].innerHTML = '';
+        const fragment = document.createDocumentFragment();
         let contador = 1;
 
-        if(respuesta.status == 200){
+        if (respuesta.status == 200) {
             alert('Clientes Encontrados');
-            if(data.length > 0 ){
-                
+            if (data.length > 0) {
                 data.forEach(cliente => {
-    
                     const tr = document.createElement('tr');
                     const celda1 = document.createElement('td');
                     const celda2 = document.createElement('td');
@@ -57,9 +54,9 @@ const ObtenerClientes = async () => {
                     celda3.innerText = cliente.cli_apellido;
                     celda4.innerText = cliente.cli_nit;
                     celda5.innerText = cliente.cli_telefono;
-                    
-                    celda6.appendChild(BtnEliminar);
-                    celda7.appendChild(BtnModificar);
+
+                    celda6.appendChild(BtnModificar);
+                    celda7.appendChild(BtnEliminar);
 
                     tr.appendChild(celda1);
                     tr.appendChild(celda2);
@@ -72,32 +69,31 @@ const ObtenerClientes = async () => {
                     fragment.appendChild(tr);
                     contador++;
                 });
-
-            }else{
-                const tr = document.createElement('tr')
-                const td = document.createElement('td')
-                td.innerText = 'No hay clientes '
+            } else {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.innerText = 'No hay clientes ';
                 td.colSpan = 7;
-        
-                tr.appendChild(td)
-                fragment.appendChild(tr)
-            }
 
-        }else{
+                tr.appendChild(td);
+                fragment.appendChild(tr);
+            }
+            tablaClientes.tBodies[0].appendChild(fragment); // Añade el fragmento al tbody aquí
+        } else {
             console.log('No se encontraron Datos');
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 
 }
 
 ObtenerClientes();
 
-const GuardarClientes = async (event) =>{
+const GuardarClientes = async (event) => {
 
     event.preventDefault();
-    
+
     BtnGuardar.disabled = true;
 
     const url = '/CRUD_JS/controladores/clientes/index.php'
@@ -107,7 +103,7 @@ const GuardarClientes = async (event) =>{
 
     const config = {
         method: 'POST',
-        body : formData
+        body: formData
 
     }
 
@@ -127,7 +123,7 @@ const GuardarClientes = async (event) =>{
             console.log(detalle);
         }
 
-        
+
     } catch (error) {
         console.log(error);
     }

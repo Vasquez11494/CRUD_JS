@@ -16,9 +16,19 @@ try {
                 $ejecucion = $Cliente->guardar();
                 $mensaje = "Cliente Guardado correctamente";
                 $codigo = 1;
-            } else {
-                $mensaje = "Tipo de solicitud no válido";
+            } elseif ($tipo === "2") {
+                $Cliente = new Cliente($_POST);
+                $ejecucion = $Cliente->modificar();
+                $mensaje = "Cliente Modificado correctamente";
                 $codigo = 2;
+            } elseif ($tipo === "3") {
+                $Cliente = new Cliente($_POST);
+                $ejecucion = $Cliente->eliminar();
+                $mensaje = "Cliente Eliminado correctamente";
+                $codigo = 3;
+            } else {
+                $mensaje = 'Tipo No encontrado';
+                $codigo = 5;
             }
             break;
 
@@ -39,7 +49,6 @@ try {
         "mensaje" => $mensaje,
         "codigo" => $codigo
     ]);
-
 } catch (Exception $e) {
     echo json_encode([
         "detalle" => $e->getMessage(),

@@ -4,6 +4,7 @@
     <div class="row justify-content-center">
         <form class="border bg-light shadow rounded p-4 col-lg-6">
             <div class="row mb-3">
+                <input type="hidden" name="cli_codigo" id="cli_codigo" class="form-control" required>
                 <div class="col">
                     <label for="cli_nombre">Nombre del Cliente</label>
                     <input type="text" name="cli_nombre" id="cli_nombre" class="form-control" required>
@@ -29,10 +30,16 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <button type="submit" id="BtnGuardar"  class="btn btn-primary w-100">Guardar</button>
+                    <button type="submit" id="BtnGuardar" class="btn btn-primary w-100">Guardar</button>
                 </div>
                 <div class="col">
                     <button type="button" id="BtnBuscar" class="btn btn-info w-100">Buscar</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="BtnModificar" class="btn btn-warning w-100">Modificar</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="BtnCancelar" class="btn btn-secondary w-100">Cancelar</button>
                 </div>
                 <div class="col">
                     <button type="reset" id="BtnLimpiar" class="btn btn-secondary w-100">Limpiar</button>
